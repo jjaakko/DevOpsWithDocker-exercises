@@ -26,3 +26,5 @@ RUN ["/bin/bash", "-c", "exec \"$SHELL\""]
 # RUN pyenv install 2.7.17
 RUN ~/.pyenv/bin/pyenv install 2.7.17
 RUN ~/.pyenv/bin/pyenv install 3.6.8
+
+RUN apt-get install pipenv
