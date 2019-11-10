@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  first_volume_exercise:
+    image: devopsdockeruh/first_volume_exercise
+    build:
+      context: .
+    volumes:
+      - ${PWD}/logs.txt:/usr/app/logs.txt
