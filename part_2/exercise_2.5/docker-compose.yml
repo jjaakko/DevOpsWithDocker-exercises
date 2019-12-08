@@ -2,10 +2,17 @@ version: '3'
 
 services:
   backend:
-    build: ./backend
+    build: ./backend/backend-server
     image: backend
+    container_name: backend_container
+    environment:
+      - REDIS=redis_container 
     ports:
       - 8888:8000
+  redis:
+    image: redis:5.0.7
+    container_name: redis_container
+    restart: unless-stopped
   frontend:
     build: ./frontend
     image: frontend
