@@ -10,7 +10,9 @@ services:
     ports:
       - 8888:8000
   redis:
-    image: redis:5.0.7
+    #image: redis:5.0.7
+    build: ./backend/redis
+    image: redis
     container_name: redis_container
     restart: unless-stopped
   frontend:
