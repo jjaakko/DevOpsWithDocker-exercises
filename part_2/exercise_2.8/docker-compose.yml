@@ -1,0 +1,44 @@
+version: "3.1"
+
+services:
+  nginx:
+    build:
+      context: ./ml-kurkkumopo-frontend
+      dockerfile: Dockerfile
+    container_name: nginx
+
+  backend:
+    build: ./backend/backend-server
+    image: backend
+    container_name: backend_container
+    environment:
+      - REDIS=redis_container
+      - DB_USERNAME=root
+      - DB_PASSWORD=example
+      - DB_HOST=db
+    ports:
+      - 8888:8000
+
+  redis:
+    image: redis:5.0.7
+    container_name: redis_container
+    restart: unless-stopped
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=example
+    container_name: db_backend
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  frontend:
+    build: ./frontend
+    image: frontend
+    ports:
+      - 8001:5000
+
+volumes:
+  database:
