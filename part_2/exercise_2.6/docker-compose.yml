@@ -12,6 +12,9 @@ services:
       - DB_HOST=db
     ports:
       - 8888:8000
+    depends_on:
+      - db
+      - redis
 
   redis:
     image: redis:5.0.7
