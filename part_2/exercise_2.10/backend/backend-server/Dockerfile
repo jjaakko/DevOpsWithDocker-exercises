@@ -9,4 +9,4 @@ COPY backend-example-docker /root/.
 WORKDIR /root/backend-example-docker
 
 RUN npm install
-CMD FRONT_URL=http://localhost:8001 npm start
+CMD FRONT_URL=http://localhost npm start
