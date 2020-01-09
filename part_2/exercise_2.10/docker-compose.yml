@@ -40,8 +40,8 @@ services:
     build: ./frontend
     image: frontend
     container_name: frontend_container
-    # ports:
-    #   - 8001:5000
+    ports:
+      - 8001:5000
 
 volumes:
   database:
