@@ -1,0 +1,1 @@
+I used python-slim as a base. A also added node, git, nginx and a bunch of basic linux tools. Couldn't figure out what would I need in reality so I kept this quite simple. In real life, I assume we want to have most of the elements as separate containers.
