@@ -1,0 +1,33 @@
+version: "3.1"
+
+services:
+  frontend:
+    build:
+      context: ./ml-kurkkumopo-frontend
+      dockerfile: Dockerfile
+    image: kurkkumopo-front
+    ports:
+      - 3000:3000
+  
+  backend:
+    build:
+      context: ./ml-kurkkumopo-backend
+      dockerfile: Dockerfile
+    image: kurkku-mopo-backend
+    depends_on:
+      - training
+    volumes:
+      - model:/model
+
+  training:
+    build:
+      context: ./ml-kurkkumopo-training
+      dockerfile: Dockerfile
+    image: kurkku-mopo-training
+    volumes:
+      - model:/model
+      - data:/data
+  
+volumes:
+  model:
+  data:
