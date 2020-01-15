@@ -7,12 +7,12 @@ apt-get install -y nodejs && \
 apt-get purge -y --auto-remove curl && \ 
 rm -rf /var/lib/apt/lists/* && \
 mkdir /app && \
-useradd -m app && chown app /app -R
+useradd -m app
+
+COPY backend-example-docker /app
+RUN chown app /app -R
 
 USER app
-
-WORKDIR /app
-COPY backend-example-docker /app
 WORKDIR /app
 
 RUN npm install
