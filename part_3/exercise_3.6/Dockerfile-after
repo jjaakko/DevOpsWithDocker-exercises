@@ -1,0 +1,26 @@
+FROM python:2.7.16
+
+WORKDIR /project
+
+# Install requirements early on, so we can use cache more efficiently
+# when building the image.
+COPY ./backend-project/requirements.txt /project/requirements.txt
+COPY ./django-entrypoint.sh /project/backend-build/django-entrypoint.sh
+
+# Add new line to requirements.txt to to prevent pip from using the wheel
+# to avoid django.core.exceptions.ImproperlyConfigured: Error loading psycopg2 module
+RUN apt-get update && apt-get install -y libpq-dev && \
+sed -i -E '1s/^/--no-binary psycopg2\n/' requirements.txt && \
+pip install -r requirements.txt && \
+rm requirements.txt && \
+chmod a+rx /project/backend-build/django-entrypoint.sh && \
+ln -s /project/backend-project /project/backend-build/backend-project && \
+useradd -m django && \
+chown django /project -R
+
+WORKDIR /project/backend-build
+
+EXPOSE 8888
+
+# Entrypoint is performing necessary steps and then starting either django runserver or qcluster
+ENTRYPOINT ["./django-entrypoint.sh"]

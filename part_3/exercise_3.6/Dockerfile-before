@@ -1,0 +1,30 @@
+FROM python:2.7.16
+
+RUN mkdir /project
+WORKDIR /project
+# Install requirements early on, so we can use cache more efficiently
+# when building the image.
+COPY ./backend-project/requirements.txt /project/requirements.txt
+# Add new line to requirements.txt to to prevent pip from using the wheel
+# to avoid django.core.exceptions.ImproperlyConfigured: Error loading psycopg2 module
+RUN sed -i -E '1s/^/--no-binary psycopg2\n/' requirements.txt
+RUN pip install -r requirements.txt
+# We don't want two copies of the same file.
+RUN rm requirements.txt
+
+RUN mkdir backend-build
+
+COPY ./django-entrypoint.sh /project/backend-build/django-entrypoint.sh
+RUN chmod a+rx /project/backend-build/django-entrypoint.sh
+WORKDIR /project/backend-build
+
+RUN ln -s ../backend-project backend-project
+
+WORKDIR /project/backend-build
+
+USER django
+
+EXPOSE 8888
+
+# Entrypint is performing necessary steps and then starting django with runserver
+ENTRYPOINT ["./django-entrypoint.sh"]
