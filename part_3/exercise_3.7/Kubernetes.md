@@ -14,7 +14,7 @@ Kubernetes is currently the most used tool to for managing multiple containers a
     * A host machine. Can be physical or virtual.
     * Master node communicates with worker nodes.
 * Pod
-    * A set of one or more containers
+    * A set of one or more containers. Smallest entity that can be deployed.
 * Kubelet
     * Handles the communication between master node and the worker node. Also executes pod containers.
 
