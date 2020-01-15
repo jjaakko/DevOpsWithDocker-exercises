@@ -6,7 +6,7 @@ Source: https://kubernetes.io/
 
 Docker-compose can manage multiple containers in the same host machine. However, if you need multiple host machines, you need other tools.
 
-Kubernetes is currently the most used tool to for managing multiple containers and containerized host machines.
+Kubernetes is currently the most used tool to for managing multiple containers and containerized host machines. Big vendors such as Google Cloud Platform and Amazon Web Services offer Kubernetes based deployments. Other options include Red Hat's (Open Shift)[https://www.openshift.com/] which is also based on Kubernetes under the hood.
 
 ## A couple of Kubernetes related terms
 
